@@ -1,0 +1,1375 @@
+<!DOCTYPE html>  
+  
+<html lang="zh-CN">  
+<head>  
+  <meta charset="UTF-8" />  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+  <title>URIVO · 柚初行</title>  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />  
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Serif+SC:wght@300;400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet" />  
+  <style>  
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }  
+  
+```  
+:root {  
+  --milk:     #fdfaf7;  
+  --ivory:    #f8f3ee;  
+  --pearl:    #f0e8e0;  
+  --blush:    #f2d6d0;  
+  --rose:     #e8b4b0;  
+  --pink:     #d4848a;  
+  --dusty:    #c9737a;  
+  --deep:     #8b4a50;  
+  --charcoal: #2c2420;  
+  --warm-gray:#9a8880;  
+  --light-gray:#e8e0da;  
+}  
+  
+html { scroll-behavior: smooth; }  
+  
+body {  
+  background: var(--milk);  
+  color: var(--charcoal);  
+  font-family: 'DM Sans', sans-serif;  
+  font-weight: 300;  
+  overflow-x: hidden;  
+}  
+  
+/* GRAIN */  
+body::after {  
+  content: '';  
+  position: fixed;  
+  inset: 0;  
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");  
+  pointer-events: none;  
+  z-index: 9999;  
+}  
+  
+/* ── LANGUAGE ── */  
+.lang-en .zh { display: none !important; }  
+.lang-zh .en { display: none !important; }  
+  
+/* ── NAV ── */  
+nav {  
+  position: fixed;  
+  top: 0; left: 0; right: 0;  
+  z-index: 200;  
+  display: flex;  
+  justify-content: space-between;  
+  align-items: center;  
+  padding: 24px 60px;  
+  transition: background 0.4s, box-shadow 0.4s;  
+}  
+nav.scrolled {  
+  background: rgba(253,250,247,0.96);  
+  backdrop-filter: blur(12px);  
+  box-shadow: 0 1px 0 rgba(212,132,138,0.12);  
+}  
+  
+.nav-logo {  
+  display: flex;  
+  flex-direction: column;  
+  text-decoration: none;  
+  line-height: 1;  
+}  
+.nav-logo-en {  
+  font-family: 'Playfair Display', serif;  
+  font-size: 20px;  
+  font-weight: 500;  
+  letter-spacing: 0.22em;  
+  color: var(--charcoal);  
+}  
+.nav-logo-zh {  
+  font-family: 'Noto Serif SC', serif;  
+  font-size: 10px;  
+  letter-spacing: 0.3em;  
+  color: var(--pink);  
+  margin-top: 3px;  
+}  
+  
+.nav-center {  
+  display: flex;  
+  gap: 44px;  
+  list-style: none;  
+}  
+.nav-center a {  
+  font-size: 11px;  
+  letter-spacing: 0.18em;  
+  text-transform: uppercase;  
+  color: var(--warm-gray);  
+  text-decoration: none;  
+  transition: color 0.3s;  
+  font-family: 'DM Sans', sans-serif;  
+}  
+.nav-center a:hover { color: var(--charcoal); }  
+  
+.nav-right {  
+  display: flex;  
+  align-items: center;  
+  gap: 20px;  
+}  
+  
+.lang-toggle {  
+  display: flex;  
+  border: 1px solid var(--rose);  
+  border-radius: 40px;  
+  overflow: hidden;  
+}  
+.lang-btn {  
+  padding: 6px 16px;  
+  font-size: 10px;  
+  letter-spacing: 0.15em;  
+  cursor: pointer;  
+  border: none;  
+  background: transparent;  
+  color: var(--warm-gray);  
+  font-family: 'DM Sans', sans-serif;  
+  transition: background 0.3s, color 0.3s;  
+}  
+.lang-btn.active {  
+  background: var(--pink);  
+  color: white;  
+}  
+  
+/* ── HERO ── */  
+.hero {  
+  min-height: 100vh;  
+  display: grid;  
+  grid-template-columns: 55% 45%;  
+  position: relative;  
+  overflow: hidden;  
+}  
+  
+.hero-left {  
+  display: flex;  
+  flex-direction: column;  
+  justify-content: center;  
+  padding: 140px 72px 100px;  
+  position: relative;  
+  z-index: 2;  
+}  
+  
+.hero-badge {  
+  display: inline-flex;  
+  align-items: center;  
+  gap: 10px;  
+  margin-bottom: 48px;  
+  opacity: 0;  
+  animation: fadeUp 1s ease 0.2s forwards;  
+}  
+.hero-badge-line {  
+  width: 32px;  
+  height: 1px;  
+  background: var(--rose);  
+}  
+.hero-badge span {  
+  font-size: 10px;  
+  letter-spacing: 0.4em;  
+  text-transform: uppercase;  
+  color: var(--pink);  
+  font-family: 'Cormorant Garamond', serif;  
+}  
+  
+.hero-title {  
+  font-family: 'Playfair Display', serif;  
+  font-size: clamp(44px, 5.5vw, 78px);  
+  font-weight: 400;  
+  line-height: 1.08;  
+  color: var(--charcoal);  
+  margin-bottom: 12px;  
+  opacity: 0;  
+  animation: fadeUp 1s ease 0.4s forwards;  
+}  
+.hero-title-zh {  
+  font-family: 'Noto Serif SC', serif;  
+  font-size: clamp(36px, 4.5vw, 62px);  
+  font-weight: 300;  
+  line-height: 1.3;  
+  color: var(--charcoal);  
+  margin-bottom: 12px;  
+  opacity: 0;  
+  animation: fadeUp 1s ease 0.4s forwards;  
+}  
+.hero-title em, .hero-title-zh em {  
+  font-style: italic;  
+  color: var(--pink);  
+}  
+  
+.hero-sub {  
+  font-family: 'Cormorant Garamond', serif;  
+  font-size: 18px;  
+  font-style: italic;  
+  color: var(--rose);  
+  margin-bottom: 40px;  
+  letter-spacing: 0.05em;  
+  opacity: 0;  
+  animation: fadeUp 1s ease 0.55s forwards;  
+}  
+  
+.hero-desc {  
+  font-size: 14px;  
+  line-height: 2;  
+  color: var(--warm-gray);  
+  max-width: 380px;  
+  letter-spacing: 0.04em;  
+  opacity: 0;  
+  animation: fadeUp 1s ease 0.65s forwards;  
+}  
+  
+.hero-actions {  
+  margin-top: 52px;  
+  display: flex;  
+  align-items: center;  
+  gap: 28px;  
+  opacity: 0;  
+  animation: fadeUp 1s ease 0.8s forwards;  
+}  
+  
+.btn-primary {  
+  display: inline-block;  
+  padding: 15px 44px;  
+  background: var(--charcoal);  
+  color: var(--milk);  
+  font-size: 11px;  
+  letter-spacing: 0.22em;  
+  text-transform: uppercase;  
+  text-decoration: none;  
+  font-family: 'DM Sans', sans-serif;  
+  transition: background 0.3s, transform 0.2s;  
+  border-radius: 1px;  
+}  
+.btn-primary:hover { background: var(--deep); transform: translateY(-2px); }  
+  
+.btn-outline {  
+  display: inline-block;  
+  padding: 14px 36px;  
+  border: 1px solid var(--rose);  
+  color: var(--pink);  
+  font-size: 11px;  
+  letter-spacing: 0.18em;  
+  text-transform: uppercase;  
+  text-decoration: none;  
+  font-family: 'DM Sans', sans-serif;  
+  transition: all 0.3s;  
+  border-radius: 1px;  
+}  
+.btn-outline:hover { background: var(--blush); border-color: var(--pink); }  
+  
+.hero-right {  
+  position: relative;  
+  background: linear-gradient(145deg, var(--pearl) 0%, var(--blush) 60%, var(--rose) 100%);  
+  overflow: hidden;  
+}  
+  
+.hero-right::before {  
+  content: '';  
+  position: absolute;  
+  top: -20%;  
+  right: -20%;  
+  width: 120%;  
+  height: 120%;  
+  background: radial-gradient(ellipse at 60% 40%, rgba(255,255,255,0.6) 0%, transparent 60%);  
+}  
+  
+.hero-visual {  
+  position: absolute;  
+  inset: 0;  
+  display: flex;  
+  align-items: center;  
+  justify-content: center;  
+  flex-direction: column;  
+  gap: 24px;  
+}  
+  
+.logo-display {  
+  width: 260px;  
+  height: 260px;  
+  border-radius: 50%;  
+  background: var(--charcoal);  
+  display: flex;  
+  align-items: center;  
+  justify-content: center;  
+  box-shadow: 0 40px 100px rgba(44,36,32,0.2), 0 0 0 1px rgba(255,255,255,0.1);  
+  opacity: 0;  
+  animation: scaleIn 1.2s cubic-bezier(0.34,1.56,0.64,1) 0.3s forwards;  
+  position: relative;  
+}  
+  
+.logo-inner {  
+  font-family: 'Playfair Display', serif;  
+  font-size: 36px;  
+  font-weight: 500;  
+  letter-spacing: 0.3em;  
+  color: white;  
+  position: relative;  
+}  
+.logo-dot {  
+  position: absolute;  
+  top: -6px;  
+  left: 50%;  
+  transform: translateX(-2px);  
+  width: 8px;  
+  height: 8px;  
+  border-radius: 50%;  
+  background: var(--rose);  
+}  
+  
+.hero-ring {  
+  position: absolute;  
+  width: 340px;  
+  height: 340px;  
+  border-radius: 50%;  
+  border: 1px solid rgba(212,132,138,0.3);  
+  animation: rotate 25s linear infinite;  
+  opacity: 0;  
+  animation: rotate 25s linear infinite, fadeIn 2s ease 1s forwards;  
+}  
+.hero-ring-2 {  
+  width: 420px;  
+  height: 420px;  
+  border-color: rgba(212,132,138,0.15);  
+  animation: rotate 40s linear infinite reverse, fadeIn 2s ease 1.3s forwards;  
+  opacity: 0;  
+}  
+  
+.ring-gem {  
+  position: absolute;  
+  top: -5px;  
+  left: 50%;  
+  transform: translateX(-50%);  
+  width: 10px;  
+  height: 10px;  
+  border-radius: 50%;  
+  background: var(--pink);  
+  box-shadow: 0 0 12px var(--rose);  
+}  
+  
+.hero-caption {  
+  position: absolute;  
+  bottom: 48px;  
+  left: 50%;  
+  transform: translateX(-50%);  
+  text-align: center;  
+  opacity: 0;  
+  animation: fadeUp 1s ease 1.2s forwards;  
+}  
+.hero-caption p {  
+  font-family: 'Cormorant Garamond', serif;  
+  font-size: 13px;  
+  font-style: italic;  
+  color: rgba(44,36,32,0.5);  
+  letter-spacing: 0.15em;  
+  white-space: nowrap;  
+}  
+  
+/* ── MARQUEE ── */  
+.marquee-wrap {  
+  background: var(--charcoal);  
+  padding: 18px 0;  
+  overflow: hidden;  
+}  
+.marquee-track {  
+  display: flex;  
+  gap: 0;  
+  animation: marquee 18s linear infinite;  
+  width: max-content;  
+}  
+.marquee-item {  
+  display: flex;  
+  align-items: center;  
+  gap: 32px;  
+  padding: 0 32px;  
+  white-space: nowrap;  
+}  
+.marquee-text {  
+  font-family: 'Cormorant Garamond', serif;  
+  font-size: 13px;  
+  font-style: italic;  
+  letter-spacing: 0.2em;  
+  color: var(--rose);  
+}  
+.marquee-dot {  
+  width: 4px;  
+  height: 4px;  
+  border-radius: 50%;  
+  background: var(--pink);  
+  flex-shrink: 0;  
+}  
+  
+/* ── SECTION COMMON ── */  
+.section-tag {  
+  display: inline-flex;  
+  align-items: center;  
+  gap: 12px;  
+  margin-bottom: 28px;  
+}  
+.section-tag-line { width: 24px; height: 1px; background: var(--rose); }  
+.section-tag span {  
+  font-size: 10px;  
+  letter-spacing: 0.4em;  
+  text-transform: uppercase;  
+  color: var(--pink);  
+  font-family: 'DM Sans', sans-serif;  
+}  
+  
+.section-title-en {  
+  font-family: 'Playfair Display', serif;  
+  font-size: clamp(32px, 4vw, 54px);  
+  font-weight: 400;  
+  line-height: 1.15;  
+  color: var(--charcoal);  
+}  
+.section-title-zh {  
+  font-family: 'Noto Serif SC', serif;  
+  font-size: clamp(26px, 3.5vw, 46px);  
+  font-weight: 300;  
+  line-height: 1.4;  
+  color: var(--charcoal);  
+}  
+.section-title-en em, .section-title-zh em {  
+  font-style: italic;  
+  color: var(--pink);  
+}  
+  
+/* ── PHILOSOPHY ── */  
+.philosophy {  
+  padding: 140px 60px;  
+  display: grid;  
+  grid-template-columns: 1fr 1.6fr;  
+  gap: 100px;  
+  align-items: start;  
+}  
+  
+.philosophy-left { position: sticky; top: 120px; }  
+  
+.philosophy-ornament {  
+  width: 80px;  
+  height: 80px;  
+  border-radius: 50%;  
+  border: 1px solid var(--rose);  
+  display: flex;  
+  align-items: center;  
+  justify-content: center;  
+  margin-bottom: 40px;  
+}  
+.philosophy-ornament span {  
+  font-family: 'Playfair Display', serif;  
+  font-size: 28px;  
+  font-style: italic;  
+  color: var(--pink);  
+}  
+  
+.philosophy-right { }  
+  
+.philosophy-lead {  
+  font-family: 'Playfair Display', serif;  
+  font-size: 22px;  
+  font-style: italic;  
+  color: var(--pink);  
+  line-height: 1.6;  
+  margin-bottom: 40px;  
+  padding-bottom: 40px;  
+  border-bottom: 1px solid var(--pearl);  
+}  
+  
+.philosophy-body-en {  
+  font-size: 15px;  
+  line-height: 2.1;  
+  color: var(--warm-gray);  
+  letter-spacing: 0.03em;  
+}  
+.philosophy-body-zh {  
+  font-family: 'Noto Serif SC', serif;  
+  font-size: 14px;  
+  line-height: 2.4;  
+  color: var(--warm-gray);  
+  letter-spacing: 0.06em;  
+}  
+  
+.philosophy-body-en p + p,  
+.philosophy-body-zh p + p { margin-top: 20px; }  
+  
+/* ── MOMENTS ── */  
+.moments {  
+  background: var(--ivory);  
+  padding: 120px 60px;  
+}  
+  
+.moments-header {  
+  display: flex;  
+  justify-content: space-between;  
+  align-items: flex-end;  
+  margin-bottom: 72px;  
+}  
+  
+.moments-grid {  
+  display: grid;  
+  grid-template-columns: repeat(4, 1fr);  
+  gap: 2px;  
+}  
+  
+.moment-card {  
+  background: white;  
+  padding: 48px 36px 52px;  
+  position: relative;  
+  overflow: hidden;  
+  cursor: default;  
+  transition: transform 0.3s;  
+}  
+.moment-card:hover { transform: translateY(-4px); }  
+  
+.moment-card::after {  
+  content: '';  
+  position: absolute;  
+  bottom: 0; left: 0; right: 0;  
+  height: 2px;  
+  background: linear-gradient(90deg, var(--rose), var(--pink));  
+  transform: scaleX(0);  
+  transform-origin: left;  
+  transition: transform 0.4s;  
+}  
+.moment-card:hover::after { transform: scaleX(1); }  
+  
+.moment-num {  
+  font-family: 'Playfair Display', serif;  
+  font-size: 52px;  
+  font-style: italic;  
+  color: var(--blush);  
+  line-height: 1;  
+  margin-bottom: 28px;  
+  transition: color 0.3s;  
+}  
+.moment-card:hover .moment-num { color: var(--rose); }  
+  
+.moment-title-en {  
+  font-family: 'Playfair Display', serif;  
+  font-size: 16px;  
+  font-weight: 400;  
+  color: var(--charcoal);  
+  margin-bottom: 6px;  
+}  
+.moment-title-zh {  
+  font-family: 'Noto Serif SC', serif;  
+  font-size: 15px;  
+  font-weight: 400;  
+  color: var(--charcoal);  
+  margin-bottom: 6px;  
+}  
+.moment-desc-en {  
+  font-size: 12px;  
+  line-height: 1.9;  
+  color: var(--warm-gray);  
+  margin-top: 14px;  
+}  
+.moment-desc-zh {  
+  font-family: 'Noto Serif SC', serif;  
+  font-size: 12px;  
+  line-height: 2.2;  
+  color: var(--warm-gray);  
+  margin-top: 14px;  
+  letter-spacing: 0.05em;  
+}  
+  
+/* ── QUOTE ── */  
+.quote-section {  
+  background: var(--charcoal);  
+  padding: 120px 60px;  
+  text-align: center;  
+  position: relative;  
+  overflow: hidden;  
+}  
+  
+.quote-section::before {  
+  content: '';  
+  position: absolute;  
+  top: 50%;  
+  left: 50%;  
+  transform: translate(-50%, -50%);  
+  width: 600px;  
+  height: 600px;  
+  border-radius: 50%;  
+  background: radial-gradient(ellipse, rgba(212,132,138,0.08) 0%, transparent 70%);  
+  pointer-events: none;  
+}  
+  
+.quote-mark {  
+  font-family: 'Playfair Display', serif;  
+  font-size: 100px;  
+  line-height: 0.6;  
+  color: var(--pink);  
+  opacity: 0.3;  
+  display: block;  
+  margin-bottom: 32px;  
+}  
+  
+.quote-text-en {  
+  font-family: 'Playfair Display', serif;  
+  font-size: clamp(22px, 3vw, 38px);  
+  font-style: italic;  
+  font-weight: 400;  
+  color: var(--milk);  
+  line-height: 1.6;  
+  max-width: 800px;  
+  margin: 0 auto 20px;  
+}  
+.quote-text-zh {  
+  font-family: 'Noto Serif SC', serif;  
+  font-size: clamp(18px, 2.5vw, 30px);  
+  font-weight: 300;  
+  color: var(--milk);  
+  line-height: 1.8;  
+  max-width: 700px;  
+  margin: 0 auto 20px;  
+  letter-spacing: 0.08em;  
+}  
+  
+.quote-attr {  
+  margin-top: 44px;  
+  font-size: 10px;  
+  letter-spacing: 0.5em;  
+  text-transform: uppercase;  
+  color: var(--pink);  
+  font-family: 'DM Sans', sans-serif;  
+}  
+  
+/* ── VALUES ── */  
+.values {  
+  padding: 140px 60px;  
+  background: var(--milk);  
+}  
+  
+.values-header { margin-bottom: 80px; }  
+  
+.values-grid {  
+  display: grid;  
+  grid-template-columns: repeat(3, 1fr);  
+  gap: 24px;  
+}  
+  
+.value-card {  
+  background: var(--ivory);  
+  padding: 56px 44px;  
+  position: relative;  
+  overflow: hidden;  
+  border: 1px solid var(--pearl);  
+  transition: border-color 0.3s, transform 0.3s;  
+}  
+.value-card:hover {  
+  border-color: var(--rose);  
+  transform: translateY(-4px);  
+}  
+  
+.value-card::before {  
+  content: '';  
+  position: absolute;  
+  top: 0; left: 0; right: 0;  
+  height: 3px;  
+  background: linear-gradient(90deg, var(--blush), var(--pink), var(--blush));  
+  opacity: 0;  
+  transition: opacity 0.3s;  
+}  
+.value-card:hover::before { opacity: 1; }  
+  
+.value-icon {  
+  width: 56px;  
+  height: 56px;  
+  border-radius: 50%;  
+  background: var(--blush);  
+  display: flex;  
+  align-items: center;  
+  justify-content: center;  
+  margin-bottom: 32px;  
+}  
+.value-icon span {  
+  font-family: 'Playfair Display', serif;  
+  font-size: 22px;  
+  font-style: italic;  
+  color: var(--deep);  
+}  
+  
+.value-name-en {  
+  font-family: 'Playfair Display', serif;  
+  font-size: 24px;  
+  font-weight: 400;  
+  color: var(--charcoal);  
+  margin-bottom: 6px;  
+}  
+.value-name-zh {  
+  font-family: 'Noto Serif SC', serif;  
+  font-size: 22px;  
+  font-weight: 300;  
+  color: var(--charcoal);  
+  margin-bottom: 6px;  
+}  
+.value-name-sub {  
+  font-size: 10px;  
+  letter-spacing: 0.25em;  
+  text-transform: uppercase;  
+  color: var(--pink);  
+  margin-bottom: 24px;  
+  font-family: 'DM Sans', sans-serif;  
+}  
+.value-desc-en {  
+  font-size: 13px;  
+  line-height: 2;  
+  color: var(--warm-gray);  
+}  
+.value-desc-zh {  
+  font-family: 'Noto Serif SC', serif;  
+  font-size: 13px;  
+  line-height: 2.2;  
+  color: var(--warm-gray);  
+  letter-spacing: 0.05em;  
+}  
+  
+/* ── PRODUCTS ── */  
+.products {  
+  padding: 140px 60px;  
+  background: var(--pearl);  
+}  
+  
+.products-header {  
+  display: flex;  
+  justify-content: space-between;  
+  align-items: flex-end;  
+  margin-bottom: 72px;  
+}  
+  
+.products-grid {  
+  display: grid;  
+  grid-template-columns: repeat(3, 1fr);  
+  gap: 28px;  
+}  
+  
+.product-card {  
+  background: white;  
+  overflow: hidden;  
+  border: 1px solid var(--pearl);  
+  transition: box-shadow 0.4s, transform 0.3s;  
+}  
+.product-card:hover {  
+  box-shadow: 0 24px 60px rgba(212,132,138,0.15);  
+  transform: translateY(-6px);  
+}  
+  
+.product-visual {  
+  height: 320px;  
+  background: linear-gradient(145deg, var(--ivory), var(--blush));  
+  position: relative;  
+  display: flex;  
+  align-items: center;  
+  justify-content: center;  
+  overflow: hidden;  
+}  
+  
+.product-shape {  
+  width: 130px;  
+  height: 170px;  
+  border-radius: 65px;  
+  background: linear-gradient(145deg, white, var(--rose));  
+  box-shadow: 0 20px 50px rgba(212,132,138,0.25), inset 0 0 24px rgba(255,255,255,0.6);  
+  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);  
+}  
+.product-card:hover .product-shape { transform: scale(1.06) rotate(-4deg); }  
+  
+.product-tag {  
+  position: absolute;  
+  top: 20px;  
+  left: 20px;  
+  background: var(--charcoal);  
+  color: white;  
+  font-size: 9px;  
+  letter-spacing: 0.25em;  
+  text-transform: uppercase;  
+  padding: 6px 14px;  
+  font-family: 'DM Sans', sans-serif;  
+}  
+  
+.product-info {  
+  padding: 28px 32px 36px;  
+  border-top: 1px solid var(--pearl);  
+}  
+  
+.product-name-en {  
+  font-family: 'Playfair Display', serif;  
+  font-size: 20px;  
+  color: var(--charcoal);  
+  margin-bottom: 4px;  
+}  
+.product-name-zh {  
+  font-family: 'Noto Serif SC', serif;  
+  font-size: 18px;  
+  font-weight: 300;  
+  color: var(--charcoal);  
+  margin-bottom: 4px;  
+}  
+.product-sub-en {  
+  font-size: 11px;  
+  letter-spacing: 0.1em;  
+  color: var(--warm-gray);  
+  margin-bottom: 20px;  
+  font-family: 'DM Sans', sans-serif;  
+}  
+.product-sub-zh {  
+  font-family: 'Noto Serif SC', serif;  
+  font-size: 11px;  
+  letter-spacing: 0.1em;  
+  color: var(--warm-gray);  
+  margin-bottom: 20px;  
+}  
+.product-features {  
+  display: flex;  
+  gap: 8px;  
+  flex-wrap: wrap;  
+}  
+.product-feature {  
+  font-size: 9px;  
+  letter-spacing: 0.15em;  
+  text-transform: uppercase;  
+  padding: 5px 12px;  
+  border: 1px solid var(--rose);  
+  color: var(--pink);  
+  border-radius: 40px;  
+  font-family: 'DM Sans', sans-serif;  
+}  
+  
+/* ── FOOTER ── */  
+footer {  
+  background: var(--charcoal);  
+  padding: 100px 60px 0;  
+}  
+  
+.footer-top {  
+  display: grid;  
+  grid-template-columns: 2fr 1fr 1fr 1fr;  
+  gap: 60px;  
+  padding-bottom: 80px;  
+  border-bottom: 1px solid rgba(232,180,176,0.12);  
+}  
+  
+.footer-brand { }  
+  
+.footer-logo-en {  
+  font-family: 'Playfair Display', serif;  
+  font-size: 32px;  
+  font-weight: 400;  
+  letter-spacing: 0.15em;  
+  color: white;  
+  margin-bottom: 4px;  
+}  
+.footer-logo-zh {  
+  font-family: 'Noto Serif SC', serif;  
+  font-size: 12px;  
+  letter-spacing: 0.3em;  
+  color: var(--pink);  
+  margin-bottom: 28px;  
+}  
+  
+.footer-tagline-en {  
+  font-family: 'Cormorant Garamond', serif;  
+  font-size: 15px;  
+  font-style: italic;  
+  line-height: 1.9;  
+  color: rgba(240,232,224,0.5);  
+  max-width: 260px;  
+  margin-bottom: 8px;  
+}  
+.footer-tagline-zh {  
+  font-family: 'Noto Serif SC', serif;  
+  font-size: 13px;  
+  line-height: 2.2;  
+  color: rgba(240,232,224,0.5);  
+  max-width: 260px;  
+  margin-bottom: 8px;  
+  letter-spacing: 0.08em;  
+}  
+  
+.footer-col-title {  
+  font-size: 9px;  
+  letter-spacing: 0.4em;  
+  text-transform: uppercase;  
+  color: var(--pink);  
+  margin-bottom: 28px;  
+  font-family: 'DM Sans', sans-serif;  
+}  
+  
+.footer-links {  
+  list-style: none;  
+  display: flex;  
+  flex-direction: column;  
+  gap: 16px;  
+}  
+.footer-links a {  
+  font-size: 13px;  
+  color: rgba(240,232,224,0.5);  
+  text-decoration: none;  
+  letter-spacing: 0.05em;  
+  transition: color 0.3s;  
+  font-family: 'DM Sans', sans-serif;  
+}  
+.footer-links a:hover { color: var(--rose); }  
+  
+.footer-bottom {  
+  padding: 28px 0;  
+  display: flex;  
+  justify-content: space-between;  
+  align-items: center;  
+}  
+.footer-copy {  
+  font-size: 10px;  
+  letter-spacing: 0.12em;  
+  color: rgba(232,180,176,0.3);  
+  font-family: 'DM Sans', sans-serif;  
+}  
+  
+/* ── SCROLL REVEAL ── */  
+.reveal {  
+  opacity: 0;  
+  transform: translateY(28px);  
+  transition: opacity 0.9s ease, transform 0.9s ease;  
+}  
+.reveal.visible { opacity: 1; transform: translateY(0); }  
+  
+/* ── ANIMATIONS ── */  
+@keyframes fadeUp {  
+  from { opacity: 0; transform: translateY(20px); }  
+  to   { opacity: 1; transform: translateY(0); }  
+}  
+@keyframes scaleIn {  
+  from { opacity: 0; transform: scale(0.85); }  
+  to   { opacity: 1; transform: scale(1); }  
+}  
+@keyframes fadeIn {  
+  from { opacity: 0; }  
+  to   { opacity: 1; }  
+}  
+@keyframes rotate {  
+  from { transform: rotate(0deg); }  
+  to   { transform: rotate(360deg); }  
+}  
+@keyframes marquee {  
+  from { transform: translateX(0); }  
+  to   { transform: translateX(-50%); }  
+}  
+  
+/* ── RESPONSIVE ── */  
+@media (max-width: 960px) {  
+  nav { padding: 18px 24px; }  
+  .nav-center { display: none; }  
+  .hero { grid-template-columns: 1fr; }  
+  .hero-right { height: 55vw; min-height: 320px; }  
+  .hero-left { padding: 100px 28px 60px; }  
+  .philosophy { grid-template-columns: 1fr; gap: 40px; padding: 80px 28px; }  
+  .philosophy-left { position: static; }  
+  .moments { padding: 80px 28px; }  
+  .moments-header { flex-direction: column; align-items: flex-start; gap: 16px; }  
+  .moments-grid { grid-template-columns: 1fr 1fr; }  
+  .quote-section { padding: 80px 28px; }  
+  .values { padding: 80px 28px; }  
+  .values-grid { grid-template-columns: 1fr; }  
+  .products { padding: 80px 28px; }  
+  .products-header { flex-direction: column; align-items: flex-start; gap: 16px; }  
+  .products-grid { grid-template-columns: 1fr; }  
+  footer { padding: 60px 28px 0; }  
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; padding-bottom: 48px; }  
+  .footer-bottom { flex-direction: column; gap: 12px; padding: 24px 0; }  
+}  
+```  
+  
+  </style>  
+</head>  
+<body class="lang-zh">  
+  
+  <!-- NAV -->  
+  
+  <nav id="mainNav">  
+    <a href="#" class="nav-logo">  
+      <span class="nav-logo-en">URIVO</span>  
+      <span class="nav-logo-zh">柚初行</span>  
+    </a>  
+    <ul class="nav-center">  
+      <li><a href="#philosophy"><span class="zh">理念</span><span class="en">Philosophy</span></a></li>  
+      <li><a href="#moments"><span class="zh">场景</span><span class="en">Moments</span></a></li>  
+      <li><a href="#products"><span class="zh">产品</span><span class="en">Products</span></a></li>  
+      <li><a href="#contact"><span class="zh">联系</span><span class="en">Contact</span></a></li>  
+    </ul>  
+    <div class="nav-right">  
+      <div class="lang-toggle">  
+        <button class="lang-btn" id="btnZh" onclick="setLang('zh')">中文</button>  
+        <button class="lang-btn" id="btnEn" onclick="setLang('en')">EN</button>  
+      </div>  
+    </div>  
+  </nav>  
+  
+  <!-- HERO -->  
+  
+  <section class="hero">  
+    <div class="hero-left">  
+      <div class="hero-badge">  
+        <div class="hero-badge-line"></div>  
+        <span class="zh">一次性内裤 · 品牌官网</span>  
+        <span class="en">Disposable Underwear · Official</span>  
+      </div>  
+  
+```  
+  <h1 class="hero-title en">  
+    The layer closest<br>  
+    to your skin,<br>  
+    <em>always at ease.</em>  
+  </h1>  
+  <h1 class="hero-title-zh zh">  
+    贴近身体的那一层，<br>  
+    <em>应该始终让人安心。</em>  
+  </h1>  
+  
+  <p class="hero-sub zh">干净 · 舒适 · 可靠</p>  
+  <p class="hero-sub en">Clean · Comfortable · Reliable</p>  
+  
+  <p class="hero-desc zh">不必强调，不必张扬，也不必刻意去记住它的存在。它只是安静地贴合，让生活更顺畅。</p>  
+  <p class="hero-desc en">No need to emphasize. No need to announce. It simply fits quietly, making life flow easier.</p>  
+  
+  <div class="hero-actions">  
+    <a href="#products" class="btn-primary">  
+      <span class="zh">探索产品</span>  
+      <span class="en">Explore</span>  
+    </a>  
+    <a href="#philosophy" class="btn-outline">  
+      <span class="zh">品牌理念</span>  
+      <span class="en">Our Story</span>  
+    </a>  
+  </div>  
+</div>  
+  
+<div class="hero-right">  
+  <div class="hero-visual">  
+    <div class="hero-ring hero-ring-2"><div class="ring-gem"></div></div>  
+    <div class="hero-ring"><div class="ring-gem"></div></div>  
+    <div class="logo-display">  
+      <div class="logo-inner">  
+        URIVO  
+        <div class="logo-dot"></div>  
+      </div>  
+    </div>  
+    <div class="hero-caption">  
+      <p class="zh">舒适，无论你在哪里</p>  
+      <p class="en">Comfort, wherever you are</p>  
+    </div>  
+  </div>  
+</div>  
+```  
+  
+  </section>  
+  
+  <!-- MARQUEE -->  
+  
+  <div class="marquee-wrap">  
+    <div class="marquee-track">  
+      <div class="marquee-item"><span class="marquee-text">Clean</span><div class="marquee-dot"></div><span class="marquee-text">干净</span><div class="marquee-dot"></div><span class="marquee-text">Comfortable</span><div class="marquee-dot"></div><span class="marquee-text">舒适</span><div class="marquee-dot"></div><span class="marquee-text">Reliable</span><div class="marquee-dot"></div><span class="marquee-text">可靠</span><div class="marquee-dot"></div><span class="marquee-text">URIVO · 柚初行</span><div class="marquee-dot"></div></div>  
+      <div class="marquee-item"><span class="marquee-text">Clean</span><div class="marquee-dot"></div><span class="marquee-text">干净</span><div class="marquee-dot"></div><span class="marquee-text">Comfortable</span><div class="marquee-dot"></div><span class="marquee-text">舒适</span><div class="marquee-dot"></div><span class="marquee-text">Reliable</span><div class="marquee-dot"></div><span class="marquee-text">可靠</span><div class="marquee-dot"></div><span class="marquee-text">URIVO · 柚初行</span><div class="marquee-dot"></div></div>  
+      <div class="marquee-item"><span class="marquee-text">Clean</span><div class="marquee-dot"></div><span class="marquee-text">干净</span><div class="marquee-dot"></div><span class="marquee-text">Comfortable</span><div class="marquee-dot"></div><span class="marquee-text">舒适</span><div class="marquee-dot"></div><span class="marquee-text">Reliable</span><div class="marquee-dot"></div><span class="marquee-text">可靠</span><div class="marquee-dot"></div><span class="marquee-text">URIVO · 柚初行</span><div class="marquee-dot"></div></div>  
+    </div>  
+  </div>  
+  
+  <!-- PHILOSOPHY -->  
+  
+  <section class="philosophy" id="philosophy">  
+    <div class="philosophy-left reveal">  
+      <div class="philosophy-ornament"><span>U</span></div>  
+      <div class="section-tag">  
+        <div class="section-tag-line"></div>  
+        <span class="zh">品牌理念</span>  
+        <span class="en">Philosophy</span>  
+      </div>  
+      <h2 class="section-title-en en">True luxury<br>is feeling<br><em>effortless.</em></h2>  
+      <h2 class="section-title-zh zh">真正的高级，<br>不是复杂，<br><em>而是理所当然。</em></h2>  
+    </div>  
+    <div class="philosophy-right">  
+      <p class="philosophy-lead en reveal">"The layer closest to your body should always make you feel at ease — quietly, without fanfare."</p>  
+      <p class="philosophy-lead zh reveal">「贴近身体的那一层，应该始终让人安心——安静地，不必张扬。」</p>  
+  
+```  
+  <div class="philosophy-body-en en reveal">  
+    <p>Life isn't always dramatic. Most of the time, it simply moves forward — to work, back home, after a workout, before a shower, in a quiet evening at home or a strange morning abroad.</p>  
+    <p>We move between spaces, between states of mind. Some choices are for efficiency. Some are for dignity. And some — just for comfort.</p>  
+    <p>URIVO was born from a simple idea: the layer closest to your body should always make you feel at ease. It fits quietly. It doesn't burden you when you're busy. It doesn't disturb you when you're at rest.</p>  
+    <p>True refinement isn't complexity. It's making everything feel natural. URIVO doesn't try to change your life. It only makes it run a little smoother.</p>  
+  </div>  
+  <div class="philosophy-body-zh zh reveal">  
+    <p>生活并不总是戏剧性的。更多时候，它只是持续地向前。上班，下班。出发，归来。运动之后，沐浴之前。在家安静的夜晚，或旅途中陌生的清晨。</p>  
+    <p>我们在不同的空间之间切换，也在不同的状态之间转换。有些选择，是为了效率。有些选择，是为了体面。而有些选择，只是为了舒服。</p>  
+    <p>URIVO 诞生于这样一个简单的想法——贴近身体的那一层，应该始终让人安心。它只是安静地贴合，在忙碌时不给你负担，在放松时不打扰你，在旅途中让你轻一点，在家里让你自在一点。</p>  
+    <p>真正的高级，不是复杂，而是让一切看起来理所当然。URIVO 不试图改变生活，它只是让生活更顺畅。</p>  
+  </div>  
+</div>  
+```  
+  
+  </section>  
+  
+  <!-- MOMENTS -->  
+  
+  <section class="moments" id="moments">  
+    <div class="moments-header">  
+      <div>  
+        <div class="section-tag reveal">  
+          <div class="section-tag-line"></div>  
+          <span class="zh">使用场景</span>  
+          <span class="en">Every Moment</span>  
+        </div>  
+        <h2 class="section-title-en en reveal">Made for<br><em>every moment.</em></h2>  
+        <h2 class="section-title-zh zh reveal">它存在于<br><em>每一个日常时刻。</em></h2>  
+      </div>  
+    </div>  
+    <div class="moments-grid">  
+      <div class="moment-card reveal">  
+        <div class="moment-num">01</div>  
+        <div class="moment-title-en en">On the Road</div>  
+        <div class="moment-title-zh zh">旅途中</div>  
+        <p class="moment-desc-en en">Between cities, the lighter the luggage the better. Disposable underwear lets you travel with less weight and more freedom.</p>  
+        <p class="moment-desc-zh zh">城市与城市之间，行李越轻越好。一次性内裤让旅途少一点负担，多一点自由。</p>  
+      </div>  
+      <div class="moment-card reveal">  
+        <div class="moment-num">02</div>  
+        <div class="moment-title-en en">After Exercise</div>  
+        <div class="moment-title-zh zh">运动后</div>  
+        <p class="moment-desc-en en">After a workout, before the shower. Putting on something fresh is the simplest respect you can show your body.</p>  
+        <p class="moment-desc-zh zh">运动之后，沐浴之前。换一件干净的，是对身体最简单的尊重。</p>  
+      </div>  
+      <div class="moment-card reveal">  
+        <div class="moment-num">03</div>  
+        <div class="moment-title-en en">At Home</div>  
+        <div class="moment-title-zh zh">宅家时</div>  
+        <p class="moment-desc-en en">A quiet evening at home. No overthinking, no extra decisions. It lets you be comfortable without the fuss.</p>  
+        <p class="moment-desc-zh zh">在家安静的夜晚，不想多想，懒得多算。它让你自在，不打扰你。</p>  
+      </div>  
+      <div class="moment-card reveal">  
+        <div class="moment-num">04</div>  
+        <div class="moment-title-en en">Special Care</div>  
+        <div class="moment-title-zh zh">特殊时期</div>  
+        <p class="moment-desc-en en">Some moments call for extra peace of mind. Clean, reliable — so you can focus on what matters most.</p>  
+        <p class="moment-desc-zh zh">某些时候需要格外安心。干净、可靠，让你专注于更重要的事。</p>  
+      </div>  
+    </div>  
+  </section>  
+  
+  <!-- QUOTE -->  
+  
+  <section class="quote-section">  
+    <span class="quote-mark">"</span>  
+    <p class="quote-text-en en reveal">Comfort, wherever you are.</p>  
+    <p class="quote-text-zh zh reveal">舒适，无论你在哪里。</p>  
+    <p class="quote-attr reveal">— URIVO · 柚初行</p>  
+  </section>  
+  
+  <!-- VALUES -->  
+  
+  <section class="values" id="about">  
+    <div class="values-header">  
+      <div class="section-tag reveal">  
+        <div class="section-tag-line"></div>  
+        <span class="zh">品牌承诺</span>  
+        <span class="en">Our Promise</span>  
+      </div>  
+      <h2 class="section-title-en en reveal">Three pillars,<br><em>one promise.</em></h2>  
+      <h2 class="section-title-zh zh reveal">三个承诺，<br><em>一个信念。</em></h2>  
+    </div>  
+    <div class="values-grid">  
+      <div class="value-card reveal">  
+        <div class="value-icon"><span>I</span></div>  
+        <div class="value-name-en en">Clean</div>  
+        <div class="value-name-zh zh">干净</div>  
+        <div class="value-name-sub en">Hygiene First</div>  
+        <div class="value-name-sub zh">卫生至上</div>  
+        <p class="value-desc-en en">Individually packaged, every piece meets you in its cleanest state. Consistent hygiene standards from production to use.</p>  
+        <p class="value-desc-zh zh">独立包装，每一件都在最洁净的状态与你相遇。从生产到使用，始终如一的卫生标准。</p>  
+      </div>  
+      <div class="value-card reveal">  
+        <div class="value-icon"><span>II</span></div>  
+        <div class="value-name-en en">Comfortable</div>  
+        <div class="value-name-zh zh">舒适</div>  
+        <div class="value-name-sub en">Skin-Friendly</div>  
+        <div class="value-name-sub zh">亲肤设计</div>  
+        <p class="value-desc-en en">Soft, skin-friendly materials. No pressure marks, no restriction. Designed to make you forget it's even there.</p>  
+        <p class="value-desc-zh zh">亲肤材质，无勒痕，无束缚感。让你忘记它的存在，专注于当下最重要的事。</p>  
+      </div>  
+      <div class="value-card reveal">  
+        <div class="value-icon"><span>III</span></div>  
+        <div class="value-name-en en">Reliable</div>  
+        <div class="value-name-zh zh">可靠</div>  
+        <div class="value-name-sub en">Quality Assured</div>  
+        <div class="value-name-sub zh">品质保证</div>  
+        <p class="value-desc-en en">Every product passes rigorous quality control. No frills, no over-engineering. Just quietly doing what it's meant to do.</p>  
+        <p class="value-desc-zh zh">每一件产品都经过严格品质把控。不花哨，只是安静地做好它该做的事。</p>  
+      </div>  
+    </div>  
+  </section>  
+  
+  <!-- PRODUCTS -->  
+  
+  <section class="products" id="products">  
+    <div class="products-header">  
+      <div>  
+        <div class="section-tag reveal">  
+          <div class="section-tag-line"></div>  
+          <span class="zh">产品系列</span>  
+          <span class="en">Our Collection</span>  
+        </div>  
+        <h2 class="section-title-en en reveal">Simple choices,<br><em>quiet confidence.</em></h2>  
+        <h2 class="section-title-zh zh reveal">简单的选择，<br><em>安静的自信。</em></h2>  
+      </div>  
+    </div>  
+    <div class="products-grid">  
+      <div class="product-card reveal">  
+        <div class="product-visual">  
+          <div class="product-shape"></div>  
+          <span class="product-tag en">Classic</span>  
+          <span class="product-tag zh">经典款</span>  
+        </div>  
+        <div class="product-info">  
+          <div class="product-name-en en">URIVO Classic</div>  
+          <div class="product-name-zh zh">经典系列</div>  
+          <p class="product-sub-en en">Daily Essential · Pure Cotton</p>  
+          <p class="product-sub-zh zh">日常经典 · 纯棉亲肤</p>  
+          <div class="product-features">  
+            <span class="product-feature en">Breathable</span>  
+            <span class="product-feature zh">透气</span>  
+            <span class="product-feature en">Soft</span>  
+            <span class="product-feature zh">柔软</span>  
+            <span class="product-feature en">Daily Use</span>  
+            <span class="product-feature zh">日用</span>  
+          </div>  
+        </div>  
+      </div>  
+      <div class="product-card reveal">  
+        <div class="product-visual" style="background: linear-gradient(145deg, #ede6db, #ddc9b5);">  
+          <div class="product-shape" style="background: linear-gradient(145deg, #faf4ee, #d4b09a);"></div>  
+          <span class="product-tag en">Travel</span>  
+          <span class="product-tag zh">旅行款</span>  
+        </div>  
+        <div class="product-info">  
+          <div class="product-name-en en">URIVO Travel</div>  
+          <div class="product-name-zh zh">旅行系列</div>  
+          <p class="product-sub-en en">Lightweight Travel · Individual Pack</p>  
+          <p class="product-sub-zh zh">轻量出行 · 独立包装</p>  
+          <div class="product-features">  
+            <span class="product-feature en">Compact</span>  
+            <span class="product-feature zh">轻便</span>  
+            <span class="product-feature en">Individual</span>  
+            <span class="product-feature zh">独立包装</span>  
+            <span class="product-feature en">Travel-size</span>  
+            <span class="product-feature zh">旅行装</span>  
+          </div>  
+        </div>  
+      </div>  
+      <div class="product-card reveal">  
+        <div class="product-visual" style="background: linear-gradient(145deg, #f0e8e8, #e0c4c4);">  
+          <div class="product-shape" style="background: linear-gradient(145deg, #fff0f0, #e8b4b4);"></div>  
+          <span class="product-tag en">Care</span>  
+          <span class="product-tag zh">呵护款</span>  
+        </div>  
+        <div class="product-info">  
+          <div class="product-name-en en">URIVO Care</div>  
+          <div class="product-name-zh zh">呵护系列</div>  
+          <p class="product-sub-en en">Special Care · Enhanced Protection</p>  
+          <p class="product-sub-zh zh">特殊呵护 · 加量加厚</p>  
+          <div class="product-features">  
+            <span class="product-feature en">Extra Care</span>  
+            <span class="product-feature zh">加强保护</span>  
+            <span class="product-feature en">Sensitive</span>  
+            <span class="product-feature zh">敏感肌</span>  
+            <span class="product-feature en">Thick</span>  
+            <span class="product-feature zh">加厚</span>  
+          </div>  
+        </div>  
+      </div>  
+    </div>  
+  </section>  
+  
+  <!-- FOOTER -->  
+  
+  <footer id="contact">  
+    <div class="footer-top">  
+      <div class="footer-brand">  
+        <div class="footer-logo-en">URIVO</div>  
+        <div class="footer-logo-zh">柚初行 · 一次性内裤</div>  
+        <p class="footer-tagline-en en">Clean. Comfortable. Reliable.<br>Wherever you are, URIVO is there.</p>  
+        <p class="footer-tagline-zh zh">干净。舒适。可靠。<br>无论你在哪里，URIVO 都在那里。</p>  
+      </div>  
+      <div>  
+        <div class="footer-col-title zh">关于品牌</div>  
+        <div class="footer-col-title en">About</div>  
+        <ul class="footer-links">  
+          <li><a href="#"><span class="zh">品牌故事</span><span class="en">Brand Story</span></a></li>  
+          <li><a href="#"><span class="zh">品牌理念</span><span class="en">Philosophy</span></a></li>  
+          <li><a href="#"><span class="zh">可持续发展</span><span class="en">Sustainability</span></a></li>  
+          <li><a href="#"><span class="zh">媒体资源</span><span class="en">Press</span></a></li>  
+        </ul>  
+      </div>  
+      <div>  
+        <div class="footer-col-title zh">产品</div>  
+        <div class="footer-col-title en">Products</div>  
+        <ul class="footer-links">  
+          <li><a href="#"><span class="zh">经典系列</span><span class="en">Classic</span></a></li>  
+          <li><a href="#"><span class="zh">旅行系列</span><span class="en">Travel</span></a></li>  
+          <li><a href="#"><span class="zh">呵护系列</span><span class="en">Care</span></a></li>  
+          <li><a href="#"><span class="zh">定制服务</span><span class="en">Custom</span></a></li>  
+        </ul>  
+      </div>  
+      <div>  
+        <div class="footer-col-title zh">联系我们</div>  
+        <div class="footer-col-title en">Contact</div>  
+        <ul class="footer-links">  
+          <li><a href="#"><span class="zh">合作洽谈</span><span class="en">Partnership</span></a></li>  
+          <li><a href="#"><span class="zh">客户服务</span><span class="en">Support</span></a></li>  
+          <li><a href="#"><span class="zh">微信公众号</span><span class="en">WeChat</span></a></li>  
+          <li><a href="#"><span class="zh">小红书</span><span class="en">Instagram</span></a></li>  
+        </ul>  
+      </div>  
+    </div>  
+    <div class="footer-bottom">  
+      <p class="footer-copy">© 2025 URIVO 柚初行. All rights reserved.</p>  
+      <p class="footer-copy zh">舒适，无论你在哪里。</p>  
+      <p class="footer-copy en">Comfort, wherever you are.</p>  
+    </div>  
+  </footer>  
+  
+  <script>  
+    // Language switch  
+    function setLang(lang) {  
+      document.body.classList.remove('lang-zh', 'lang-en');  
+      document.body.classList.add('lang-' + lang);  
+      document.getElementById('btnZh').classList.toggle('active', lang === 'zh');  
+      document.getElementById('btnEn').classList.toggle('active', lang === 'en');  
+      document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';  
+    }  
+    // Default  
+    document.getElementById('btnZh').classList.add('active');  
+  
+    // Scroll reveal  
+    const observer = new IntersectionObserver((entries) => {  
+      entries.forEach(entry => {  
+        if (entry.isIntersecting) {  
+          entry.target.classList.add('visible');  
+          observer.unobserve(entry.target);  
+        }  
+      });  
+    }, { threshold: 0.08 });  
+  
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));  
+  
+    // Stagger grid children  
+    document.querySelectorAll('.moments-grid, .products-grid, .values-grid').forEach(grid => {  
+      grid.querySelectorAll('.reveal').forEach((child, i) => {  
+        child.style.transitionDelay = `${i * 0.1}s`;  
+      });  
+    });  
+  
+    // Nav scroll  
+    const nav = document.getElementById('mainNav');  
+    window.addEventListener('scroll', () => {  
+      nav.classList.toggle('scrolled', window.scrollY > 60);  
+    });  
+  </script>  
+  
+</body>  
+</html>  
